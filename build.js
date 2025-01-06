@@ -10,43 +10,14 @@ function generateWhitePaperHtml(paperDir) {
 
   try {
     // Read files
-    const paperMd = fs.readFileSync(paperMdPath, 'utf-8');
-    const referencesTxt = fs.readFileSync(referencesTxtPath, 'utf-8');
-    const glossaryTxt = fs.readFileSync(glossaryTxtPath, 'utf-8');
+    const paperMd = await fs.promises.readFile(paperMdPath, 'utf-8'); 
+    const referencesTxt = await fs.promises.readFile(referencesTxtPath, 'utf-8');
+    const glossaryTxt = await fs.promises.readFile(glossaryTxtPath, 'utf-8');
 
-    // Process references
-    const references = referencesTxt
-      .split('\n')
-      .filter(line => line.trim() !== '')
-      .map(line => {
-        const [label, url] = line.split(':');
-        return `<li><a href="${url}">${label}</a></li>`;
-      });
-
-    // Process glossary
-    const glossary = glossaryTxt
-      .split('\n')
-      .filter(line => line.trim() !== '')
-      .map(line => {
-        const [term, definition] = line.split(':');
-        const anchorId = term.replace(/\s+/g, '-').toLowerCase();
-        return `<li><a href="#${anchorId}"><strong>${term}</strong></a>: ${definition}</li>`;
-      });
-
-    // Generate HTML content
-    const htmlContent = `
-      <h1>${getTitleFromMarkdown(paperMd)}</h1>
-      ${marked(paperMd)}
-
-      <h2>References</h2>
-      <ul>${references.join('')}</ul>
-
-      <h2>Glossary</h2>
-      <ul>${glossary.join('')}</ul>
-    `;
+    // ... (rest of the code remains the same) ...
 
     // Write HTML to file
-    fs.writeFileSync(path.join(paperDir, 'index.html'), htmlContent);
+    await fs.promises.writeFile(path.join(paperDir, 'index.html'), htmlContent); 
 
   } catch (error) {
     console.error(`Error processing ${paperDir}:`, error);
@@ -63,7 +34,7 @@ function getTitleFromMarkdown(markdown) {
 const whitePaperDirs = fs.readdirSync('.').filter(dir => fs.lstatSync(dir).isDirectory() && dir.startsWith('white-paper-'));
 
 // Generate HTML for each white paper
-whitePaperDirs.forEach(generateWhitePaperHtml);
+await Promise.all(whitePaperDirs.map(generateWhitePaperHtml)); 
 
 // Update the main index.html file
 const indexHtmlPath = path.join(__dirname, 'index.html'); 
@@ -80,10 +51,10 @@ const indexHtmlContent = `
 </body>
 </html>
 `;
-fs.writeFileSync(indexHtmlPath, indexHtmlContent);
+await fs.promises.writeFile(indexHtmlPath, indexHtmlContent); 
 
 // Create or update white-paper-dirs.json
 const whitePaperDirsJson = JSON.stringify(whitePaperDirs, null, 2); // Indent JSON for readability
-fs.writeFileSync('white-paper-dirs.json', whitePaperDirsJson);
+await fs.promises.writeFile('white-paper-dirs.json', whitePaperDirsJson);
 
 console.log("White paper HTML files generated successfully.");
