@@ -76,6 +76,7 @@ whitePaperDirs.forEach(generateWhitePaperHtml);
 
 // Update the main index.html file
 const indexHtmlPath = path.join(__dirname, 'index.html'); 
+const whitePaperLinks = whitePaperDirs.map(dir => `<li><a href="${dir}/">${dir.replace('white-paper-', '')}</a></li>`).join('');
 const indexHtmlContent = `
 <!DOCTYPE html>
 <html>
@@ -84,12 +85,14 @@ const indexHtmlContent = `
 </head>
 <body>
   <h1>White Paper Index</h1>
-  <ul>
-    ${whitePaperDirs.map(dir => `<li><a href="${dir}/">${dir.replace('white-paper-', '')}</a></li>`).join('')} 
-  </ul>
+  <ul>${whitePaperLinks}</ul>
 </body>
 </html>
 `;
 fs.writeFileSync(indexHtmlPath, indexHtmlContent);
+
+// Create or update white-paper-dirs.json
+const whitePaperDirsJson = JSON.stringify(whitePaperDirs, null, 2); // Indent JSON for readability
+fs.writeFileSync('white-paper-dirs.json', whitePaperDirsJson);
 
 console.log("White paper HTML files generated successfully.");
