@@ -39,7 +39,4 @@ Contributions are welcome! Please follow these guidelines:
 
 **License**
 
-This project is licensed under the MIT License. See the LICENSE file for details.   
-
-
-Sources and related content
+This project is licensed under the MIT License. See the LICENSE file for details.
