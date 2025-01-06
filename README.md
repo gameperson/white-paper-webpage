@@ -1,26 +1,32 @@
-## White Paper Webpage
+# White Paper Website
 
-This project allows you to publish white papers on GitHub Pages, automatically generating individual webpages for each paper.
+This website serves as a repository for white papers on various topics related to [your field of interest]. 
 
-**Features:**
+## Folder Structure
 
-* **Automated Build:** Uses Node.js and a build tool to automate the generation of HTML pages from Markdown, references, and glossary files.
-* **Dynamic Indexing:** The main index page automatically lists all available white papers.
-* **Markdown Support:** White paper content is written in Markdown for easy formatting.
-* **Glossary and References:** Each white paper can have a dedicated glossary and reference list.
-* **GitHub Pages Integration:** Designed for seamless deployment to GitHub Pages.
+The project uses the following folder structure:
 
-URL: https://gameperson.github.io/white-paper-webpage/
+* **white-paper-topic1:** This folder contains the content for the first white paper on topic 1.
+    * `paper.md`: This file stores the white paper content in Markdown format.
+    * `references.txt`: This file contains the list of references for the white paper.
+    * `glossary.txt`: This file defines any glossary terms used in the white paper.
+* **white-paper-topic2:** Similar structure for additional white papers.
+* **README.md:** This file (you're currently reading it!).
+* **index.html:** This file serves as the main landing page for the website (we'll create this later).
+* **build.js** (Optional): This script automates the website generation process (we'll create this later).
 
-**Additional Notes:**
-  *You can add more white paper folders following the same structure.
-  * The build.js script can be customized to modify the build process or add additional features.
+## Contributing (Optional)
 
-**Feel free to contribute!**
+If you'd like to contribute a white paper to this website, please follow these steps:
 
-This project is open-source, and we welcome contributions. If you have any suggestions or improvements, please create a pull request.
+1. Create a new subfolder named `white-paper-<your-topic>`, where `<your-topic>` represents the subject of your white paper.
+2. Inside the subfolder, create the following files:
+    * `paper.md`: Add your white paper content in Markdown format.
+    * `references.txt`: List your references for the white paper.
+    * `glossary.txt` (Optional): Define any glossary terms used in the white paper.
 
-**License:**
-  This project is licensed under the MIT License. 1  See the LICENSE file for 2  details.   
-  1. github.com  Apache - 2.0
-  2. github.com
+## Building the Website (Optional)
+
+This section will be added later to explain how to run the build script (if you choose to use one) to generate the final website files.
+
+We'll keep adding details to this README as we progress with the website development.
