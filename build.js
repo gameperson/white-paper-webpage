@@ -2,15 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
 
-/*
- * build.js
- *
- * This script automates the generation of HTML pages for each white paper.
- * It reads the paper.md, references.txt, and glossary.txt files within each 
- * white paper directory, processes the data, and generates the HTML content.
- * It also updates the main index.html file with links to all white papers.
- */
-
 // Function to generate HTML for a single white paper
 function generateWhitePaperHtml(paperDir) { 
   const paperMdPath = path.join(paperDir, 'paper.md');
