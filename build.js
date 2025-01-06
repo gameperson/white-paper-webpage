@@ -2,8 +2,17 @@ const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
 
+/*
+ * build.js
+ *
+ * This script automates the generation of HTML pages for each white paper.
+ * It reads the paper.md, references.txt, and glossary.txt files within each 
+ * white paper directory, processes the data, and generates the HTML content.
+ * It also updates the main index.html file with links to all white papers.
+ */
+
 // Function to generate HTML for a single white paper
-function generateWhitePaperHtml(paperDir) {
+function generateWhitePaperHtml(paperDir) { 
   const paperMdPath = path.join(paperDir, 'paper.md');
   const referencesTxtPath = path.join(paperDir, 'references.txt');
   const glossaryTxtPath = path.join(paperDir, 'glossary.txt');
@@ -60,23 +69,27 @@ function getTitleFromMarkdown(markdown) {
 }
 
 // Get a list of white paper directories
-const whitePaperDirs = fs.readdirSync('.').filter(dir => fs.lstatSync(dir).isDirectory());
+const whitePaperDirs = fs.readdirSync('.').filter(dir => fs.lstatSync(dir).isDirectory() && dir.startsWith('white-paper-'));
 
 // Generate HTML for each white paper
 whitePaperDirs.forEach(generateWhitePaperHtml);
 
+// Update the main index.html file
+const indexHtmlPath = path.join(__dirname, 'index.html'); 
+const indexHtmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <title>White Paper Index</title>
+</head>
+<body>
+  <h1>White Paper Index</h1>
+  <ul>
+    ${whitePaperDirs.map(dir => `<li><a href="${dir}/">${dir.replace('white-paper-', '')}</a></li>`).join('')} 
+  </ul>
+</body>
+</html>
+`;
+fs.writeFileSync(indexHtmlPath, indexHtmlContent);
+
 console.log("White paper HTML files generated successfully.");
-
-/* 
-This script:
-
-Imports necessary modules: fs (for file system operations), path (for working with file paths), and marked for Markdown to HTML conversion.
-Defines a generateWhitePaperHtml function that:
-  Reads the paper.md, references.txt, and glossary.txt files from the given directory.
-  Processes references and glossary data.
-  Generates HTML content using the extracted data and the marked library.
-  Writes the generated HTML to an index.html file within the directory.
-Defines a helper function getTitleFromMarkdown to extract the title from the paper.md file.
-Gets a list of all directories within the current folder.
-Iterates through each directory and calls generateWhitePaperHtml to process and generate the HTML for that white paper.
-*/
