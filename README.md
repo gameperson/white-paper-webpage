@@ -10,6 +10,8 @@ This project allows you to publish white papers on GitHub Pages, automatically g
 * **Glossary and References:** Each white paper can have a dedicated glossary and reference list.
 * **GitHub Pages Integration:** Designed for seamless deployment to GitHub Pages.
 
+URL: https://gameperson.github.io/white-paper-webpage/
+
 **Getting Started**
 
 1. **Clone the Repository:**
