@@ -3,7 +3,7 @@ const path = require('path');
 const marked = require('marked');
 
 // Function to generate HTML for a single white paper
-function generateWhitePaperHtml(paperDir) {
+function generateWhitePaperHtml(paperDir) { 
   const paperMdPath = path.join(paperDir, 'paper.md');
   const referencesTxtPath = path.join(paperDir, 'references.txt');
   const glossaryTxtPath = path.join(paperDir, 'glossary.txt');
@@ -65,7 +65,25 @@ const whitePaperDirs = fs.readdirSync('.').filter(dir => fs.lstatSync(dir).isDir
 // Generate HTML for each white paper
 whitePaperDirs.forEach(generateWhitePaperHtml);
 
-console.log("White paper HTML files generated successfully.");
+// Update the main index.html file
+const indexHtmlPath = path.join(__dirname, 'index.html'); 
+const whitePaperLinks = whitePaperDirs.map(dir => `<li><a href="${dir}/">${getTitleFromMarkdown(fs.readFileSync(path.join(dir, 'paper.md'), 'utf-8'))}</a></li>`).join(''); 
+const indexHtmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <title>White Paper Index</title>
+</head>
+<body>
+  <h1>White Paper Index</h1>
+  <ul>${whitePaperLinks}</ul>
+</body>
+</html>
+`;
+fs.writeFileSync(indexHtmlPath, indexHtmlContent);
 
-// Add this line to write the white-paper-dirs.json file
-fs.writeFileSync('white-paper-dirs.json', JSON.stringify(whitePaperDirs, null, 2));
+// Create or update white-paper-dirs.json
+const whitePaperDirsJson = JSON.stringify(whitePaperDirs, null, 2); // Indent JSON for readability
+fs.writeFileSync('white-paper-dirs.json', whitePaperDirsJson);
+
+console.log("White paper HTML files generated successfully.");
