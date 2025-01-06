@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>White Paper Index</title>
+</head>
+<body>
+  <h1>White Paper Index</h1>
+  <ul id="paperList"></ul>
+
+  <script>
+    // This index.html file:
+    // - Creates an unordered list (<ul>) with the ID "paperList" to dynamically display the list of white papers.
+    // - Fetches a JSON file named white-paper-dirs.json (we'll create this next) which will contain a list of the white paper directories.
+    // - Iterates through the list of directories and creates list items with links to each white paper's index.html file.
+    
+    const paperList = document.getElementById('paperList');
+
+    // Fetch the list of white paper directories
+    fetch('white-paper-dirs.json') 
+      .then(response => response.json())
+      .then(dirs => {
+        dirs.forEach(dir => {
+          const listItem = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = `${dir}/`;
+          link.textContent = dir; 
+          listItem.appendChild(link);
+          paperList.appendChild(listItem);
+        });
+      });
+  </script>
+</body>
+</html>
