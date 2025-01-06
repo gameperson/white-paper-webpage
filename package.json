@@ -1,0 +1,11 @@
+{
+  "name": "white-paper-webpage",
+  "version": "1.0.0",
+  "description": "A collection of white papers published on GitHub Pages.",
+  "scripts": {
+    "build": "node build.js" 
+  },
+  "dependencies": {
+    "marked": "^4.3.0" 
+  }
+}
