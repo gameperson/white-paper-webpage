@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Knowledge Base</title>
+  <style>
+    /* Basic styling for the glossary index */
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    a {
+      text-decoration: none;
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1>Knowledge Base</h1>
+  <ul id="knowledge-base-list"></ul>
+
+  <script>
+    // Get a list of all HTML files in the current directory
+    fetch('.') 
+      .then(response => response.text()) // Assuming the response is a directory listing
+      .then(data => {
+        const files = data.split('\n').filter(line => line.endsWith(".html")); 
+
+        const knowledgeBaseList = document.getElementById('knowledge-base-list');
+
+        files.forEach(file => {
+          const listItem = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = file; 
+          link.textContent = file.replace(".html", ""); 
+          listItem.appendChild(link);
+          knowledgeBaseList.appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching file list:", error);
+      });
+  </script>
+</body>
+</html>
