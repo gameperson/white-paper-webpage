@@ -33,11 +33,11 @@ Extracts the term name from the file name (removing the ".html" extension).
   <script>
     const glossaryList = document.getElementById('glossary-list');
 
-    // Get a list of all files ending in ".md" in the current directory
+    // Get a list of all files ending in ".html" in the current directory
     fetch('.') 
       .then(response => response.text()) // Assuming the response is a directory listing
       .then(data => {
-        const files = data.split('\n').filter(line => line.endsWith(".md")); 
+        const files = data.split('\n').filter(line => line.endsWith(".html")); 
 
         // Sort files alphabetically
         files.sort(); 
