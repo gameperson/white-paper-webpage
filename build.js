@@ -75,7 +75,11 @@ whitePaperDirs.forEach(generateWhitePaperHtml);
 
 // Update the main index.html file
 const indexHtmlPath = path.join(__dirname, 'index.html'); 
-const whitePaperLinks = whitePaperDirs.map(dir => `<li><a href="${dir}/">${getTitleFromMarkdown(fs.readFileSync(path.join(dir, 'paper.md'), 'utf-8'))}</a></li>`).join(''); 
+const whitePaperLinks = whitePaperDirs.map(dir => {
+  const paperMdPath = path.join(dir, 'paper.md');
+  const paperMd = fs.readFileSync(paperMdPath, 'utf-8'); 
+  return `<li><a href="${dir}/">${getTitleFromMarkdown(paperMd)}</a></li>`; 
+}).join(''); 
 const indexHtmlContent = `
 <!DOCTYPE html>
 <html>
