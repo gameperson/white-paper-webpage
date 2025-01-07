@@ -1,9 +1,14 @@
 <!DOCTYPE html>
+<!-- index.html:
+Fetches a list of all HTML files in the current directory.
+Creates an alphabeticaly ordered list of links to each HTML file.
+Extracts the term name from the file name (removing the ".html" extension).
+-->
 <html>
 <head>
-  <title>Knowledge Base</title>
+  <title>Glossary Index</title>
   <style>
-    /* Basic styling for the glossary index */
+    /* Optional CSS for styling */
     body {
       font-family: sans-serif;
       margin: 20px;
@@ -22,25 +27,29 @@
   </style>
 </head>
 <body>
-  <h1>Knowledge Base</h1>
-  <ul id="knowledge-base-list"></ul>
+  <h1>Glossary Index</h1>
+  <ul id="glossary-list"></ul>
 
   <script>
-    // Get a list of all HTML files in the current directory
+    const glossaryList = document.getElementById('glossary-list');
+
+    // Get a list of all files ending in ".md" in the current directory
     fetch('.') 
       .then(response => response.text()) // Assuming the response is a directory listing
       .then(data => {
-        const files = data.split('\n').filter(line => line.endsWith(".html")); 
+        const files = data.split('\n').filter(line => line.endsWith(".md")); 
 
-        const knowledgeBaseList = document.getElementById('knowledge-base-list');
+        // Sort files alphabetically
+        files.sort(); 
 
         files.forEach(file => {
           const listItem = document.createElement('li');
           const link = document.createElement('a');
-          link.href = file; 
-          link.textContent = file.replace(".html", ""); 
+          const term = file.replace(".md", ""); 
+          link.href = `${term}.html`;
+          link.textContent = term;
           listItem.appendChild(link);
-          knowledgeBaseList.appendChild(listItem);
+          glossaryList.appendChild(listItem);
         });
       })
       .catch(error => {
