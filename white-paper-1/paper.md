@@ -7,8 +7,8 @@ This is the first paragraph of my white paper.
 
 **This text is bold.**
 
-Here is Term1, Term2, and Term3.
+Here is Term1, Term2, and Term3 to be included in the glossary.
 
-See Reference1.
+This (Reference1) will link to Reference1.
 
 This is the end of the white paper.
