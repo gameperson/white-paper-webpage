@@ -1,29 +1,18 @@
 <!DOCTYPE html>
-<!--  index.html:
-Fetches all files ending with ".md" in the current directory (assuming your term files are markdown files).
-Extracts the term name from the file name (without the ".md" extension).
-Uses the processTerm function to create a list item with a link to the corresponding term's HTML file (e.g., term.html).
+<!--  Explanation:
+This index.html file uses the fetch API to get a list of all files in the current directory.
+It filters the list to include only files that end with ".html".
+For each HTML file, it creates a list item with a link to the corresponding file.
 -->
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>Glossary Index</title>
   <style>
-    /* Optional styling for the glossary index */
-    body {
-      font-family: sans-serif;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      margin-bottom: 10px;
-    }
-    a {
-      text-decoration: none;
-      color: blue;
-    }
+    /* Optional CSS for styling */
+    body { font-family: sans-serif; }
+    ul { list-style-type: none; padding: 0; }
+    li { margin-bottom: 10px; }
+    a { text-decoration: none; color: blue; }
   </style>
 </head>
 <body>
@@ -33,23 +22,24 @@ Uses the processTerm function to create a list item with a link to the correspon
   <script>
     const glossaryList = document.getElementById('glossary-list');
 
-    // Function to process a term file and create a list item
-    function processTerm(term) {
-      const listItem = document.createElement('li');
-      const link = document.createElement('a');
-      link.href = `${term}.html`;
-      link.textContent = term;
-      listItem.appendChild(link);
-      glossaryList.appendChild(listItem);
-    }
+    // Get a list of all HTML files in the current directory
+    fetch('.') 
+      .then(response => response.text()) // Assuming the response is a directory listing
+      .then(data => {
+        const files = data.split('\n').filter(line => line.endsWith('.html')); 
 
-    // Loop through all files ending in ".md" in the current directory
-    // (assuming your term files are markdown files)
-    const allFiles = document.querySelectorAll('[href$=".md"]');
-    for (const file of allFiles) {
-      const term = file.textContent.trim(); // Extract term name from file name
-      processTerm(term);
-    }
+        files.forEach(file => {
+          const listItem = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = file;
+          link.textContent = file.replace(".html", ""); 
+          listItem.appendChild(link);
+          glossaryList.appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching file list:", error);
+      });
   </script>
 </body>
 </html>
