@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ term }}</title> 
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      margin-bottom: 15px;
+    }
+    p {
+      margin-bottom: 1em;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .back-to-index {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script> 
+</head>
+<body>
+  <h1>{{ term }}</h1>
+  <div id="definition"></div>
+
+  <div class="back-to-index">
+    <a href="../index.html">Back to Glossary Index</a> 
+  </div>
+
+  <script>
+    const term = document.title; 
+
+    fetch(`../content/${term}.md`) // Fetch from the 'content' directory
+      .then(response => response.text())
+      .then(markdown => {
+        const definitionElement = document.getElementById('definition');
+        definitionElement.innerHTML = marked(markdown); 
+      })
+      .catch(error => {
+        console.error('Error loading term definition:', error);
+        const errorElement = document.createElement('p');
+        errorElement.textContent = "An error occurred while loading the term definition.";
+        document.body.appendChild(errorElement);
+      });
+  </script>
+
+</body>
+</html>
