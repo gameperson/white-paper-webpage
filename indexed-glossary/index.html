@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--  index.html:
+Fetches all files ending with ".md" in the current directory (assuming your term files are markdown files).
+Extracts the term name from the file name (without the ".md" extension).
+Uses the processTerm function to create a list item with a link to the corresponding term's HTML file (e.g., term.html).
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glossary Index</title>
+  <style>
+    /* Optional styling for the glossary index */
+    body {
+      font-family: sans-serif;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    a {
+      text-decoration: none;
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1>Glossary Index</h1>
+  <ul id="glossary-list"></ul>
+
+  <script>
+    const glossaryList = document.getElementById('glossary-list');
+
+    // Function to process a term file and create a list item
+    function processTerm(term) {
+      const listItem = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = `${term}.html`;
+      link.textContent = term;
+      listItem.appendChild(link);
+      glossaryList.appendChild(listItem);
+    }
+
+    // Loop through all files ending in ".md" in the current directory
+    // (assuming your term files are markdown files)
+    const allFiles = document.querySelectorAll('[href$=".md"]');
+    for (const file of allFiles) {
+      const term = file.textContent.trim(); // Extract term name from file name
+      processTerm(term);
+    }
+  </script>
+</body>
+</html>
