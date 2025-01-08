@@ -25,6 +25,7 @@ description: "Short description of the topic"
 
 Content goes here...
    
+
 2. Create the Initial Index File (index.md):
       This file will serve as the landing page and list all the topics.
 
@@ -35,6 +36,7 @@ Content goes here...
 {% for topic in site.topics %}
 - [{{ topic.title }}]({{ topic.url }}) - {{ topic.description }}
 {% endfor %}
+
 
 3. Supporting Files:
       Create a _config.yml file for Jekyll to configure your site.
@@ -49,7 +51,8 @@ collections:
     output: true
     permalink: /:collection/:path/
 
-   4. GitHub Actions Workflow (.github/workflows/generate_site.yml):
+
+4. GitHub Actions Workflow (.github/workflows/generate_site.yml):
       This workflow will automatically generate and update the site when new topics are added to the /topics directory.
 
 * YAML:
@@ -88,7 +91,8 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
 
-   5. Directory Structure:
+
+5. Directory Structure:
       Ensure your repository is structured like this:
 
 * Code:
@@ -104,7 +108,8 @@ _config.yml
 Gemfile
 Gemfile.lock
 
-   6. Gemfile and Gemfile.lock:
+
+6. Gemfile and Gemfile.lock:
       Create a Gemfile for Jekyll dependencies.
 
 * Ruby:
@@ -114,7 +119,8 @@ gem 'jekyll'
 gem 'github-pages', group: :jekyll_plugins
 Run bundle install to generate the Gemfile.lock.
 
-   7. Commit and Push:
+
+7. Commit and Push:
       Commit all these files to your GitHub repository and push them to the main branch.
 
 * sh:
@@ -124,7 +130,7 @@ git commit -m "Set up GitHub Pages site with automation"
 git push origin main
 
 
-   With these steps, your GitHub Pages site will be set up to automatically generate and update topic pages and the index page whenever new Markdown files are added to the /topics directory.
+* With these steps, your GitHub Pages site will be set up to automatically generate and update topic pages and the index page whenever new Markdown files are added to the /topics directory.
 
 
 **Contributing**
