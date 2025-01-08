@@ -1,3 +1,0 @@
-Term1: Definition 1
-Term2: Definition 2
-Term3: Definition 3
